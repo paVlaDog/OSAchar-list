@@ -1,7 +1,11 @@
 import React from 'react';
 import Vladenie from "./Vladenie";
+import AccordionItem from "react-bootstrap/AccordionItem";
+import AccordionHeader from "react-bootstrap/AccordionHeader";
+import AccordionBody from "react-bootstrap/AccordionBody";
+import {Accordion} from "react-bootstrap";
 
-const AllVladenia = ({Vladenia, create, harki}) => {
+const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
     const namesWeapons = [
         "Использование парного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
         "Использование двуручного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
@@ -121,46 +125,76 @@ const AllVladenia = ({Vladenia, create, harki}) => {
     const lastLore = harki[3] - sumVladenia(masSumLem[4], masSumLem[5]);
     const lastLang = harki[5] - sumVladenia(masSumLem[5], masSumLem[6]);
 
+    const createAccItem = function (num, header, body) {
+        return (
+            <AccordionItem eventKey={num}>
+                <AccordionHeader>{header}</AccordionHeader>
+                {body}
+            </AccordionItem>
+        )
+    }
 
     return (
-        <div>
-            <h3>Владения</h3>
-            <h4>Оружейные</h4>
-            <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
-            <div>Максимальное количество владений этой категории - 2 + Сил + Лов. Осталось: {lastWeapons}</div>
-            {createVladenia(Vladenia, namesWeapons, masSumLem[0]).map((a) => a)}
+        <Accordion>
+            <AccordionItem eventKey={1}>
+                <AccordionHeader>Владения</AccordionHeader>
+                <AccordionBody>
+                    <h3>{"Очков владений осталось: " + vladPoints} </h3>
+                    <Accordion alwaysOpen>
+                        {createAccItem(
+                            1, "Оружейные",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
+                                <div>Максимальное количество владений этой категории - 2 + Сил + Лов. Осталось: {lastWeapons}</div>
+                                {createVladenia(Vladenia, namesWeapons, masSumLem[0]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            2, "Доспехи",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - имеется</div>
+                                <div>При отсутвии владения вы получаете помеху на любые действия в этом типе доспехов</div>
+                                <div>Без ограничений на максимальное кол-во</div>
+                                {createVladenia(Vladenia, namesArmor, masSumLem[1]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            4, "Плутовские и владения инструментами",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - имеется</div>
+                                <div>Без ограничений на максимальное кол-во</div>
+                                {createVladenia(Vladenia, namesTool, masSumLem[3]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            5, "Знания",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - имеется</div>
+                                <div>Максимальное количество владений этой категории - Инт. Осталось: {lastLore}</div>
+                                {createVladenia(Vladenia, namesLore, masSumLem[4]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            6, "Языки",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - имеется</div>
+                                <div>Максимальное количество владений этой категории - Хар. Осталось: {lastLang}</div>
+                                {createVladenia(Vladenia, namesLang, masSumLem[5]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            7, "Прочее",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - имеется</div>
+                                <div>Без ограничений на максимальное кол-во</div>
+                                {createVladenia(Vladenia, namesOther, masSumLem[6]).map((a) => a)}
+                            </AccordionBody>
+                        )}
+                    </Accordion>
 
-            <h4>Доспехи</h4>
-            <div>0 - не имеется, 1 - имеется</div>
-            <div>При отсутвии владения вы получаете помеху на любые действия в этом типе доспехов</div>
-            <div>Без ограничений на максимальное кол-во</div>
-            {createVladenia(Vladenia, namesArmor, masSumLem[1]).map((a) => a)}
-
-            <h4>Мистические</h4>
-            <div>0 - не имеется, 1 - ученик, 2 - адепт, 3 - мастер</div>
-            <div>Максимальное количество владений этой категории - Мдр. Осталось: {lastMistic}</div>
-            {createVladenia(Vladenia, namesMistic, masSumLem[2]).map((a) => a)}
-
-            <h4>Плутовские и владения инструментами</h4>
-            <div>0 - не имеется, 1 - имеется</div>
-            <div>Без ограничений на максимальное кол-во</div>
-            {createVladenia(Vladenia, namesTool, masSumLem[3]).map((a) => a)}
-
-            <h4>Знания</h4>
-            <div>0 - не имеется, 1 - имеется</div>
-            <div>Максимальное количество владений этой категории - Инт. Осталось: {lastLore}</div>
-            {createVladenia(Vladenia, namesLore, masSumLem[4]).map((a) => a)}
-
-            <h4>Языки</h4>
-            <div>0 - не имеется, 1 - имеется</div>
-            <div>Максимальное количество владений этой категории - Хар. Осталось: {lastLang}</div>
-            {createVladenia(Vladenia, namesLang, masSumLem[5]).map((a) => a)}
-
-            <h4>Прочее</h4>
-            <div>0 - не имеется, 1 - имеется</div>
-            <div>Без ограничений на максимальное кол-во</div>
-            {createVladenia(Vladenia, namesOther, masSumLem[6]).map((a) => a)}
-        </div>
+                </AccordionBody>
+            </AccordionItem>
+        </Accordion>
     );
 
 };

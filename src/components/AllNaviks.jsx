@@ -1,7 +1,8 @@
 import React from 'react';
 import Navik from "./Navik";
+import Accordion from "react-bootstrap/Accordion";
 
-const AllNaviks = ({Naviks, create}) => {
+const AllNaviks = ({Naviks, create, accordionNumber}) => {
     const createVal = (num) => (newVal) => {
         const newNaviks = Naviks.slice(0)
         newNaviks[num] = newVal
@@ -33,18 +34,20 @@ const AllNaviks = ({Naviks, create}) => {
     const createNaviks = function(arg1, arg2){
         const ans = new Array(arg1.length);
         for (let i = 0; i < arg1.length; i++) {
-            ans[i] = <Navik val={arg1[i]} create={createVal(i)} name={arg2[i]}/>;
+            ans[i] = <Navik val={arg1[i]} create={createVal(i)} nameNavik={arg2[i]}/>;
         }
         return ans;
     }
 
     return (
-        <div>
-            <h3>Навыки</h3>
-            <div>0 - не имеется, 1 - владение, 2 - компетентность, 3 - мастерство</div>
-            <div>Со старта можно выбирать не более чем владение</div>
-            {createNaviks(Naviks, names).map((a) => a)}
-        </div>
+        <Accordion.Item eventKey={accordionNumber}>
+            <Accordion.Header>Навыки</Accordion.Header>
+            <Accordion.Body>
+                <div>0 - не имеется, 1 - владение, 2 - компетентность, 3 - мастерство</div>
+                <div>Со старта можно выбирать не более чем владение</div>
+                {createNaviks(Naviks, names).map((a) => a)}
+            </Accordion.Body>
+        </Accordion.Item>
     );
 
 };

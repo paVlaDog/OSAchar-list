@@ -1,5 +1,9 @@
 import React from 'react';
 import Thing from "./Thing";
+import AccordionItem from "react-bootstrap/AccordionItem";
+import AccordionHeader from "react-bootstrap/AccordionHeader";
+import {Accordion} from "react-bootstrap";
+import AccordionBody from "react-bootstrap/AccordionBody";
 
 const AllThings = ({Things, create}) => {
     const namesPairMeleeWeapons = [
@@ -98,21 +102,22 @@ const AllThings = ({Things, create}) => {
     const namesLightArmor = [
         [ "Стёганный (Лёгкий, КД +1)", 15 ],
         [ "Кожанный (Лёгкий, КД +2)", 30 ],
-        [ "Клёпанная кожа (Лёгкий, КД +3)", 75 ]
+        [ "Клёпанная кожа (Лёгкий, КД +3)", 75 ],
+        [ "Мифриловый полукольчужный (Лёгкий, КД +4)", 300 ]
     ]
     const namesMediumArmor = [
-        [ "Шкурный (Средний, КД +4)", 20],
-        [ "Полукольчужный (Кольчужная рубаха) (Средний, КД +5)", 40],
-        [ "Полуламеллярный (Кираса) (Средний, КД +5)", 45],
-        [ "Ламинарный (Средний, КД +6)", 90],
-        [ "Полулаты (Средний, КД +7)", 150]
+        [ "Шкурный (Средний, КД +3)", 20],
+        [ "Полукольчужный (Кольчужная рубаха) (Средний, КД +4)", 40],
+        [ "Полуламеллярный (Кираса) (Средний, КД +5)", 65],
+        [ "Ламинарный (Средний, КД +6)", 120],
+        [ "Полулаты (Средний, КД +7)", 160]
     ]
     const namesHeavyArmor = [
-        ["Колечный (Тяжёлый, КД +8)", 25],
-        ["Кольчуга (Тяжёлый, КД +8)", 35],
-        ["Ламеллярный (Чешуйчатый) (Тяжёлый, КД +9)", 65],
-        ["Пластинчатый (Тяжёлый, КД +10)", 120],
-        ["Латы (Тяжёлый, КД +11)", 320]
+        ["Колечный (Тяжёлый, КД +6)", 25],
+        ["Кольчуга (Тяжёлый, КД +7)", 45],
+        ["Ламеллярный (Чешуйчатый) (Тяжёлый, КД +8)", 85],
+        ["Пластинчатый (Тяжёлый, КД +9)", 120],
+        ["Латы (Тяжёлый, КД +10)", 320]
     ]
     const namesShield = [
         [ "Баклер (-2 к атакам оружием в этой руке, +1КД, можно носить в одной руке с оружием.)" , 10],
@@ -265,82 +270,139 @@ const AllThings = ({Things, create}) => {
 
     const moneyLast = 100 - +costs.reduce((a, b) => +a + +b);
 
+    const createAccItem = function (num, header, body) {
+        return (
+            <AccordionItem eventKey={num}>
+                <AccordionHeader>{header}</AccordionHeader>
+                {body}
+            </AccordionItem>
+        )
+    }
+
     return (
-        <div>
-            <h2>Монет осталось: <text>{moneyLast}</text> </h2>
-            <h2>Вещи</h2>
-            <h3>Оружие</h3>
-            <div>Свойства оружия:</div>
-            <h4>Урон</h4>
-            <div><strong>Парное</strong> - Если у вас парное оружие в каждой руке, вы можете действием совершать сразу 2 атаки таким оружием, дополнительно потратив бонусное действие. Для такого оружия прибаляется лишь половина бонуса к урону от основной характеристики.</div>
-            <div><strong>Простое</strong> - Простым считается оружие, не являющееся парным или двуручным.</div>
-            <div><strong>Полутороручное</strong> - Можно использовать в одной руке, как простое или в двух руках, как двуручное.</div>
-            <div><strong>Двуручное</strong> - Занимает 2 руки.</div>
-            <h4>Прочие свойства:</h4>
-            <div><strong>Длинное</strong> - Дальность удара 20 футов. Помеха на атаки по существам в радиусе 1 клетки.</div>
-            <div><strong>Двойное</strong> - Занимает 2 руки. Можно атаковать любой частью оружия.</div>
-            <div><strong>Мягкое</strong> - Игнорирование щитов.</div>
-            <div><strong>Фехтовальное</strong> - Для проверок атаки можно использовать ловкость вместо силы.</div>
-            <div><strong>Скрытое</strong> - Это оружие довольно просто скрыть.</div>
-            <div><strong>Необезоруживаемое</strong> - Невозможно обезоружить.</div>
-            <h4>Дальний бой:</h4>
-            <div><strong>Универсальное</strong> - Атаки в ближнем бою без помех.</div>
-            <div><strong>Метательное</strong> - Для проверок атак дальнего боя можно использовать силу вместо ловкости. (Ну, и метать соответственно можно) (Дальность без помехи/с помехой).</div>
-            <div><strong>Притягивающее</strong> - После полного попадания бонусным действием можно притянуть, соревнование атлетики, при победе вы притягиваете противника.</div>
-            <div><strong>Перезарядка</strong> - Вы тратите действие/бонусное действие не на выстрел, а на перезарядку оружия. Перезарядка требует двух рук. Стрелять можно реакцией.</div>
+        <Accordion alwaysOpen>
+            <AccordionItem eventKey={"111"}>
+                <AccordionHeader>Вещи</AccordionHeader>
+                <AccordionBody>
+                    <h2>Монет осталось: <text>{moneyLast}</text> </h2>
 
-            <h4>Парное рукопашное</h4>
-            <div><strong>Стандартный урон парного оружия: (Нет владения: МОД/2 | Ученик: 1к4+МОД/2 | Ветеран: 1к6+МОД/2 | Мастер: 1к8+МОД/2)</strong></div>
-            {createThings(Things, namesPairMeleeWeapons, masSumLem[0]).map((a) => a)}
+                    {createAccItem("11", "Оружие",
+                        <AccordionBody>
 
-            <h4>Простое рукопашное</h4>
-            <div><strong>Стандартный урон парного оружия: (Нет владения: МОД | Ученик: 1к6+МОД | Ветеран: 1к10+МОД | Мастер: 1к12+МОД)</strong></div>
-            {createThings(Things, namesSimpleMeleeWeapons, masSumLem[1]).map((a) => a)}
+                            <Accordion alwaysOpen>
+                                <AccordionItem eventKey={"1"}>
+                                    <AccordionHeader>Свойства оружия:</AccordionHeader>
+                                    <AccordionBody>
+                                        <h4>Урон</h4>
+                                        <div><strong>Парное</strong> - Если у вас парное оружие в каждой руке, вы можете действием совершать сразу 2 атаки таким оружием, дополнительно потратив бонусное действие. Для такого оружия прибаляется лишь половина бонуса к урону от основной характеристики.</div>
+                                        <div><strong>Простое</strong> - Простым считается оружие, не являющееся парным или двуручным.</div>
+                                        <div><strong>Полутороручное</strong> - Можно использовать в одной руке, как простое или в двух руках, как двуручное.</div>
+                                        <div><strong>Двуручное</strong> - Занимает 2 руки.</div>
+                                        <h4>Прочие свойства:</h4>
+                                        <div><strong>Длинное</strong> - Дальность удара 20 футов. Помеха на атаки по существам в радиусе 1 клетки.</div>
+                                        <div><strong>Двойное</strong> - Занимает 2 руки. Можно атаковать любой частью оружия.</div>
+                                        <div><strong>Мягкое</strong> - Игнорирование щитов.</div>
+                                        <div><strong>Фехтовальное</strong> - Для проверок атаки можно использовать ловкость вместо силы.</div>
+                                        <div><strong>Скрытое</strong> - Это оружие довольно просто скрыть.</div>
+                                        <div><strong>Необезоруживаемое</strong> - Невозможно обезоружить.</div>
+                                        <h4>Дальний бой:</h4>
+                                        <div><strong>Универсальное</strong> - Атаки в ближнем бою без помех.</div>
+                                        <div><strong>Метательное</strong> - Для проверок атак дальнего боя можно использовать силу вместо ловкости. (Ну, и метать соответственно можно) (Дальность без помехи/с помехой).</div>
+                                        <div><strong>Притягивающее</strong> - После полного попадания бонусным действием можно притянуть, соревнование атлетики, при победе вы притягиваете противника.</div>
+                                        <div><strong>Перезарядка</strong> - Вы тратите действие/бонусное действие не на выстрел, а на перезарядку оружия. Перезарядка требует двух рук. Стрелять можно реакцией.</div>
+                                    </AccordionBody>
+                                </AccordionItem>
 
-            <h4>Полутороручное рукопашное</h4>
-            <div><strong>В одной руке - урон простого, в двух - урон двуручного</strong></div>
-            {createThings(Things, namesHalfMeleeWeapons, masSumLem[2]).map((a) => a)}
+                                {createAccItem("2", "Парное рукопшаное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон парного оружия: (Нет владения: МОД/2 | Ученик: 1к4+МОД/2 | Ветеран: 1к6+МОД/2 | Мастер: 1к8+МОД/2)</strong></div>
+                                        {createThings(Things, namesPairMeleeWeapons, masSumLem[0]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("3", "Простое рукопшаное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон простого оружия: (Нет владения: МОД | Ученик: 1к6+МОД | Ветеран: 1к10+МОД | Мастер: 1к12+МОД)</strong></div>
+                                        {createThings(Things, namesSimpleMeleeWeapons, masSumLem[1]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("4", "Полутороручное рукопашное",
+                                    <AccordionBody>
+                                        <div><strong>В одной руке - урон простого, в двух - урон двуручного</strong></div>
+                                        {createThings(Things, namesHalfMeleeWeapons, masSumLem[2]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("5", "Двуручное рукопашное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к4+МОД | Ученик: 1к10+МОД | Ветеран: 2к6+МОД | Мастер: 2к8+МОД)  </strong></div>
+                                        {createThings(Things, namesTwohandMeleeWeapons, masSumLem[3]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("6", "Парное дальнобойное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон двуручного оружия: (Нет владения: МОД/2 | Ученик: 1к4+МОД/2 | Ветеран: 1к6+МОД/2 | Мастер: 1к8+МОД/2)  </strong></div>
+                                        {createThings(Things, namesPairRangeWeapons, masSumLem[4]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("7", "Простое дальнобойное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к4+МОД | Ученик: 1к6+МОД | Ветеран: 1к10+МОД | Мастер: 1к12+МОД)  </strong></div>
+                                        {createThings(Things, namesSimpleRangeWeapons, masSumLem[5]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
+                                {createAccItem("8", "Двуручное дальнобойное",
+                                    <AccordionBody>
+                                        <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к6+МОД | Ученик: 1к10+МОД | Ветеран: 2к6+МОД | Мастер: 2к8+МОД)  </strong></div>
+                                        {createThings(Things, namesTwohandRangeWeapons, masSumLem[6]).map((a) => a)}
+                                    </AccordionBody>
+                                )}
 
-            <h4>Двуручное рукопашное</h4>
-            <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к4+МОД | Ученик: 1к10+МОД | Ветеран: 2к6+МОД | Мастер: 2к8+МОД)  </strong></div>
-            {createThings(Things, namesTwohandMeleeWeapons, masSumLem[3]).map((a) => a)}
+                            </Accordion>
 
-            <h4>Парное дальнобойное</h4>
-            <div><strong>Стандартный урон двуручного оружия: (Нет владения: МОД/2 | Ученик: 1к4+МОД/2 | Ветеран: 1к6+МОД/2 | Мастер: 1к8+МОД/2)  </strong></div>
-            {createThings(Things, namesPairRangeWeapons, masSumLem[4]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h4>Простое дальнобойное</h4>
-            <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к4+МОД | Ученик: 1к6+МОД | Ветеран: 1к10+МОД | Мастер: 1к12+МОД)  </strong></div>
-            {createThings(Things, namesSimpleRangeWeapons, masSumLem[5]).map((a) => a)}
+                    {createAccItem("12", "Доспехи",
+                        <AccordionBody>
+                            <div>Лёгкие доспехи не дают негативных бонусов, если это не прописано в самих доспехах.</div>
+                            <div>Средние доспехи уменьшают бонус КФЗ от Ловкости в два раза и уменьшают скорость на 1.</div>
+                            <div>Тяжёлые доспехи запрещают получать бонус от ловкости, уменьшают скорость на 2 и дают помеху на проверки навыков Ловкости и использование заклинаний.</div>
+                            <h4>Лёгкие:</h4>
+                            {createThings(Things, namesLightArmor, masSumLem[7]).map((a) => a)}
+                            <h4>Средние:</h4>
+                            {createThings(Things, namesMediumArmor, masSumLem[8]).map((a) => a)}
+                            <h4>Тяжёлые:</h4>
+                            {createThings(Things, namesHeavyArmor, masSumLem[9]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h4>Двуручное дальнобойное</h4>
-            <div><strong>Стандартный урон двуручного оружия: (Нет владения: 1к6+МОД | Ученик: 1к10+МОД | Ветеран: 2к6+МОД | Мастер: 2к8+МОД)  </strong></div>
-            {createThings(Things, namesTwohandRangeWeapons, masSumLem[6]).map((a) => a)}
+                    {createAccItem("13", "Щиты",
+                        <AccordionBody>
+                            {createThings(Things, namesShield, masSumLem[10]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h3>Доспехи</h3>
-            <div>Лёгкие доспехи не дают негативных бонусов, если это не прописано в самих доспехах.</div>
-            <div>Средние доспехи уменьшают бонус КФЗ от Ловкости в два раза и уменьшают скорость на 1.</div>
-            <div>Тяжёлые доспехи запрещают получать бонус от ловкости, уменьшают скорость на 2 и дают помеху на проверки навыков Ловкости и использование заклинаний.</div>
-            <h4>Лёгкие</h4>
-            {createThings(Things, namesLightArmor, masSumLem[7]).map((a) => a)}
-            <h4>Средние</h4>
-            {createThings(Things, namesMediumArmor, masSumLem[8]).map((a) => a)}
-            <h4>Тяжёлые</h4>
-            {createThings(Things, namesHeavyArmor, masSumLem[9]).map((a) => a)}
+                    {createAccItem("14", "Магическая фокусировка",
+                        <AccordionBody>
+                            <div>Магическая фокусировка, постренная по принципу Криацен + резонатор, имеет свойство терять свою эффективность по мере разрядки Криацена, и его необходимо менять.</div>
+                            {createThings(Things, namesMagicWeapons, masSumLem[11]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h3>Щиты</h3>
-            {createThings(Things, namesShield, masSumLem[10]).map((a) => a)}
+                    {createAccItem("15", "Обереги",
+                        <AccordionBody>
+                            {createThings(Things, namesAmulets, masSumLem[12]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h3>Магическая фокусировка</h3>
-            <div>Магическая фокусировка, постренная по принципу Криацен + резонатор, имеет свойство терять свою эффективность по мере разрядки Криацена, и его необходимо менять.</div>
-            {createThings(Things, namesMagicWeapons, masSumLem[11]).map((a) => a)}
+                    {createAccItem("16", "Прочее",
+                        <AccordionBody>
+                            {createThings(Things, namesOther, masSumLem[13]).map((a) => a)}
+                        </AccordionBody>
+                    )}
 
-            <h3>Обереги</h3>
-            {createThings(Things, namesAmulets, masSumLem[12]).map((a) => a)}
-
-            <h3>Прочее</h3>
-            {createThings(Things, namesOther, masSumLem[13]).map((a) => a)}
-        </div>
+                </AccordionBody>
+            </AccordionItem>
+        </Accordion>
     );
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
+import AccordionItem from "react-bootstrap/AccordionItem";
+import AccordionHeader from "react-bootstrap/AccordionHeader";
+import AccordionBody from "react-bootstrap/AccordionBody";
 
-const Stats = ({boneHits, boneMane, harki}) => {
+const Stats = ({boneHits, boneMane, harki, accordionNumber}) => {
     const midVal = function (bone) {
         if (bone.length < 3) {
             return +bone;
@@ -13,15 +16,17 @@ const Stats = ({boneHits, boneMane, harki}) => {
     }
 
     return (
-        <div>
-            <h3>Вычисляемые значения:</h3>
-            <div>КФЗ:{10 + +harki[2]}</div>
-            <div>КМЗ:{harki[5]}</div>
-            <div>ЖСИ:{boneHits + " + " + harki[1]}</div>
-            <div>МСИ:{boneMane + " + " + harki[4]}</div>
-            <div>Запас хитов(средний):{Math.floor(5 * (midVal(boneHits) + +harki[1]))}</div>
-            <div>Запас маны(средний):{Math.floor(5 * (midVal(boneMane) + +harki[4]))}</div>
-        </div>
+        <AccordionItem eventKey={accordionNumber}>
+            <AccordionHeader>Вычисляемые значения:</AccordionHeader>
+            <AccordionBody>
+                <div>КФЗ:{10 + +harki[2]}</div>
+                <div>КМЗ:{harki[5]}</div>
+                <div>ЖСИ:{boneHits + " + " + harki[1]}</div>
+                <div>МСИ:{boneMane + " + " + harki[4]}</div>
+                <div>Запас хитов(средний):{Math.floor(5 * (midVal(boneHits) + +harki[1]))}</div>
+                <div>Запас маны(средний):{Math.floor(5 * (midVal(boneMane) + +harki[4]))}</div>
+            </AccordionBody>
+            </AccordionItem>
     );
 };
 
