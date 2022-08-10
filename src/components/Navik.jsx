@@ -1,42 +1,49 @@
 import React, {useState} from 'react';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import MyInput from "./UI/MyInput";
+import MyInputPlus from "./UI/MyInputPlus";
 
 
 const Navik = ({val, create, nameNavik, num}) => {
+    // const radios = [
+    //     { name: '0', value: '0' },
+    //     { name: '1', value: '1' },
+    //     { name: '2', value: '2' },
+    //     { name: '3', value: '3' },
+    // ]
 
-    const radios = [
-        { name: '0', value: '0' },
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-    ]
+    const getLvl = new Map([
+        [0, 'Отсутствие'],
+        [1, 'Ученик'],
+        [2, 'Адепт'],
+        [3, 'Мастер']
+    ])
 
     return (
         <div>
-            <MyInput
-                value = {val}
+            <text>{nameNavik}</text>
+            <MyInputPlus
+                f1 = {() => create(+val - 1)}
+                f2 = {() => create(+val + 1)}
+                style = {{width: "100px"}}
+                value = {getLvl.get(val)}
                 onChange={e => create(e.target.value)}
                 type={"text"}
-                placeholder={"0 - отсутствие, 3 - мастерство"}
+                placeholder={"От 0 до 3"}
             />
-            <text>{nameNavik}</text>
-            <ButtonGroup className="mb-2">
-                {radios.map((radio, idx) => (
-                    <ToggleButton
-                        key={idx}
-                        id={`radio${num}-${idx}`}
-                        type="radio"
-                        variant="outline-primary"
-                        name={"radio" + num}
-                        value={radio.value}
-                        onChange={(e) => create(radio.value)}
-                    >
-                        {radio.name}
-                    </ToggleButton>
-                ))}
-            </ButtonGroup>
+            {/*<ButtonGroup className="mb-2">*/}
+            {/*    {radios.map((radio, idx) => (*/}
+            {/*        <ToggleButton*/}
+            {/*            key={idx}*/}
+            {/*            id={`radio${num}-${idx}`}*/}
+            {/*            type="radio"*/}
+            {/*            variant="outline-primary"*/}
+            {/*            name={"radio" + num}*/}
+            {/*            value={radio.value}*/}
+            {/*            onChange={(e) => create(radio.value)}*/}
+            {/*        >*/}
+            {/*            {radio.name}*/}
+            {/*        </ToggleButton>*/}
+            {/*    ))}*/}
+            {/*</ButtonGroup>*/}
         </div>
     );
 };

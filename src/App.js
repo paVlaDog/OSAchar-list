@@ -13,6 +13,7 @@ import CharacterClass from "./components/CharacterClass";
 import CharacterRase from "./components/CharacterRase";
 import Skills from "./components/Skills";
 import Spells from "./components/Spells";
+import Aspects from "./components/Aspects";
 
 function midVal(bone) {
     if (bone.length < 3) {
@@ -55,6 +56,7 @@ function App() {
     const [characterRace, setCharacterRace] = useState(() => startFill(1, "", "characterRace")[0]);
     const [skills, setSkills] = useState(() => startFill(1, "", "skills")[0]);
     const [spells, setSpells] = useState(() => startFill(1, "", "spells")[0]);
+    const [aspects, setAspects] = useState(() => startFill(1, "", "aspects")[0]);
     const boneHitsCost = (boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 2 : (boneHits === "1к10" ? 5 : 25)))
     const boneHitsBonus = (boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 1 : (boneHits === "1к10" ? 2 : 0)))
     const skillPointsLast = 25 + 2*(level - 1) - 2*harks.reduce((a, b) => +a + +b) - naviks.reduce((a, b) => +a + +b) - boneHitsCost;
@@ -74,6 +76,7 @@ function App() {
     const createCharacterRace = (newMas) => {setCharacterRace(newMas);saveValue([newMas], "characterRace");};
     const createSkills = (newMas) => {setSkills(newMas);saveValue([newMas], "skills");};
     const createSpells = (newMas) => {setSpells(newMas);saveValue([newMas], "spells");};
+    const createAspects = (newMas) => {setAspects(newMas);saveValue([newMas], "aspects");};
 
 
     return (
@@ -90,7 +93,7 @@ function App() {
         />
         <div className={"borderR1"}>
             <Accordion className={"borderR2"} alwaysOpen>
-                <AllHarks Harks={harks} create={createHarks} accordionNumber={1}/>
+                <AllHarks Harks={harks} create={createHarks} accordionNumber={1} level={level}/>
                 <AllNaviks Naviks={naviks} create={createNaviks} accordionNumber={2}/>
                 <Bone name={"Кость хитов"}
                       description={"Со старта - 1к6, 1к8 или 1к10"}
@@ -119,7 +122,8 @@ function App() {
             <CharacterClass characterClass={characterClass} create={createCharacterClass}></CharacterClass>
             <CharacterRase characterRace={characterRace} create={createCharacterRace}></CharacterRase>
             <Skills skills={skills} create={createSkills}></Skills>
-            <Spells spells={spells} create={createSpells}></Spells>
+            <Spells spells={spells} create={createSpells} vladenia={vladenia} int={harks[3]}></Spells>
+            <Aspects aspects={aspects} create={createSpells} ></Aspects>
         </div>
     </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Nav} from "react-bootstrap";
 import MyInput from "./UI/MyInput";
+import MyInputPlus from "./UI/MyInputPlus";
 
 const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, addVal, maxHits, maxMane}) => {
     const createNavStats = (num) => (newVal) => {
@@ -29,13 +30,21 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
 
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Уровень:</h5>
-                <MyInput
+                <MyInputPlus
+                    f1 = {() => create(+level - 1)}
+                    f2 = {() => create(+level + 1)}
                     value = {level}
-                    onChange={e => {
-                        createLevel(e.target.value);
-                    }}
+                    onChange={e => create(e.target.value)}
                     type={"text"}
-                    placeholder={"0"}/>
+                    placeholder={"Значение"}
+                />
+                {/*<MyInput*/}
+                {/*    value = {level}*/}
+                {/*    onChange={e => {*/}
+                {/*        createLevel(e.target.value);*/}
+                {/*    }}*/}
+                {/*    type={"text"}*/}
+                {/*    placeholder={"0"}/>*/}
             </Nav.Item>
 
             <Nav.Item>
@@ -54,7 +63,7 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
                     onChange={e => {createNavStats(1)(e.target.value);}}
                     type={"text"}
                     placeholder={"0"}/>
-                <h5 style={{display: "inline-flex"}}>из:</h5>
+                <h5 style={{display: "inline-flex"}}>из</h5>
                 <MyInput
                     disabled = {"true"}
                     value = {maxHits}
@@ -69,7 +78,7 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
                     onChange={e => {createNavStats(2)(e.target.value);}}
                     type={"text"}
                     placeholder={"0"}/>
-                <h5 style={{display: "inline-flex"}}>из:</h5>
+                <h5 style={{display: "inline-flex"}}>из</h5>
                 <MyInput
                     disabled = {"true"}
                     value = {maxMane}
@@ -79,11 +88,19 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
 
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Вдохновения:</h5>
-                <MyInput
+                {/*<MyInput*/}
+                {/*    value = {navStats[3]}*/}
+                {/*    onChange={e => {createNavStats(3)(e.target.value);}}*/}
+                {/*    type={"text"}*/}
+                {/*    placeholder={"0"}/>*/}
+                <MyInputPlus
+                    f1 = {() => createNavStats(3)(+navStats[3] - 1)}
+                    f2 = {() => createNavStats(3)(+navStats[3] + 1)}
                     value = {navStats[3]}
-                    onChange={e => {createNavStats(3)(e.target.value);}}
+                    onChange={e => createNavStats(3)(e.target.value)}
                     type={"text"}
-                    placeholder={"0"}/>
+                    placeholder={"Значение"}
+                />
             </Nav.Item>
         </Nav>
     );

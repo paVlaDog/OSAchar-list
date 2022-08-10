@@ -172,7 +172,7 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic}) => {
                                     Текущий максимальный ранг: {maksRankMistic}</div>
                                 <div>Максимальное кол-во школ = уровню навыка Чувство магии.
                                     Текущее: {maksCountMistic}</div>
-                                {createVladenia(Vladenia, namesMistic, masSumLem[1], "quarta").map((a) => a)}
+                                {createVladenia(Vladenia, namesMistic, masSumLem[2], "quarta").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(

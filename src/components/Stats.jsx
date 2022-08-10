@@ -38,16 +38,88 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
         <AccordionItem eventKey={accordionNumber}>
             <AccordionHeader>Вычисляемые значения:</AccordionHeader>
             <AccordionBody>
-                <div>КФЗ:{10 + +harki[2] + +addVal[0]} {createAddInput(0)}</div>
-                <div>КМЗ:{+harki[5] + +addVal[1]} {createAddInput(1)}</div>
-                <div>ЖСИ:{boneHits + " + " + (+harki[1] + +addVal[2])} {createAddInput(2)}</div>
-                <div>МСИ:{boneMane + " + " + (+harki[4] + +addVal[3])} {createAddInput(3)}</div>
-                <div>Запас хитов(средний):{Math.floor((4 + +level) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[4])} {createAddInput(4)}</div>
-                <div>Запас маны(средний):{Math.floor((4 + +level) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[5])} {createAddInput(5)}</div>
-                <div>Бонус атаки(Сила):{+harki[0] + +addVal[6]} {createAddInput(6)}</div>
-                <div>Бонус атаки(Ловкость):{+harki[2] + +addVal[7]} {createAddInput(7)}</div>
-                <div>Бонус каста(Мудрость):{+harki[4] + +addVal[8]} {createAddInput(8)}</div>
-                <div>Бонус влияний(Харизма):{+harki[5] + +addVal[9]} {createAddInput(9)}</div>
+                <div>КФЗ:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {10 + +harki[2] + +addVal[0]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(0)}</div>
+                <div>КМЗ:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {+harki[5] + +addVal[1]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(1)}</div>
+                <div>ЖСИ:
+                    <MyInput
+                        disabled = {"true"}
+                        style = {{width: "70px"}}
+                        value = {boneHits + " + " + (+harki[1] + +addVal[2])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(2)}</div>
+                <div>МСИ:
+                    <MyInput
+                        disabled = {"true"}
+                        style = {{width: "70px"}}
+                        value = {boneMane + " + " + (+harki[4] + +addVal[3])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(3)}</div>
+                <div>Запас хитов(средний):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((4 + +level) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[4])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(4)}</div>
+                <div>Запас маны(средний):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((4 + +level) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[5])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(5)}</div>
+                <div>Бонус атаки(Сила):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {+harki[0] + +addVal[6]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(6)}</div>
+                <div>Бонус атаки(Ловкость):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {+harki[2] + +addVal[7]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(7)}</div>
+                <div>Бонус каста(Мудрость):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {+harki[4] + +addVal[8]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(8)}</div>
+                <div>Бонус влияний(Харизма):
+                    <MyInput
+                        disabled = {"true"}
+                        value = {+harki[5] + +addVal[9]}
+                        type={"text"}
+                        placeholder={"0"}/>
+                     Бонусное:
+                    {createAddInput(9)}</div>
             </AccordionBody>
         </AccordionItem>
     );

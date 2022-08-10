@@ -1,12 +1,13 @@
 import React from 'react';
-import ToggleButton from "react-bootstrap/ToggleButton";
-import MyInput from "./UI/MyInput";
+import MyInputPlus from "./UI/MyInputPlus";
 
 const Harka = ({val, create, name}) => {
     return (
         <form>
             <text>{name}</text>
-            <MyInput
+            <MyInputPlus
+                f1 = {() => create(+val - 1)}
+                f2 = {() => create(+val + 1)}
                 value = {val}
                 onChange={e => create(e.target.value)}
                 type={"text"}
