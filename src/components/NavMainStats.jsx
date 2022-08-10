@@ -31,8 +31,8 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Уровень:</h5>
                 <MyInputPlus
-                    f1 = {() => create(+level - 1)}
-                    f2 = {() => create(+level + 1)}
+                    f1 = {() => createLevel(+level - 1)}
+                    f2 = {() => createLevel(+level + 1)}
                     value = {level}
                     onChange={e => create(e.target.value)}
                     type={"text"}
@@ -58,6 +58,14 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
 
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Хиты:</h5>
+                {/*<MyInputPlus*/}
+                {/*    f1 = {() => createNavStats(1)(+navStats[3] - 1)}*/}
+                {/*    f2 = {() => createNavStats(1)(+navStats[3] + 1)}*/}
+                {/*    value = {navStats[1]}*/}
+                {/*    onChange={e => createNavStats(1)(e.target.value)}*/}
+                {/*    type={"text"}*/}
+                {/*    placeholder={"Значение"}*/}
+                {/*/>*/}
                 <MyInput
                     value = {navStats[1]}
                     onChange={e => {createNavStats(1)(e.target.value);}}
@@ -73,6 +81,14 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
 
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Мана:</h5>
+                {/*<MyInputPlus*/}
+                {/*    f1 = {() => createNavStats(2)(+navStats[2] - 1)}*/}
+                {/*    f2 = {() => createNavStats(2)(+navStats[2] + 1)}*/}
+                {/*    value = {navStats[2]}*/}
+                {/*    onChange={e => createNavStats(2)(e.target.value)}*/}
+                {/*    type={"text"}*/}
+                {/*    placeholder={"Значение"}*/}
+                {/*/>*/}
                 <MyInput
                     value = {navStats[2]}
                     onChange={e => {createNavStats(2)(e.target.value);}}
