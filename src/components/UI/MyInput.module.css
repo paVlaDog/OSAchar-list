@@ -1,0 +1,10 @@
+.myInput {
+    width: 40px;
+    /*height: 30px;*/
+    padding: 2px 5px;
+    margin: 5px 5px;
+    border: 1px solid royalblue;
+    border-radius: 5px;
+    color: royalblue;
+    text-align: center;
+}

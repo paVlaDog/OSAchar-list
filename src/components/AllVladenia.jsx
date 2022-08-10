@@ -5,19 +5,14 @@ import AccordionHeader from "react-bootstrap/AccordionHeader";
 import AccordionBody from "react-bootstrap/AccordionBody";
 import {Accordion} from "react-bootstrap";
 
-const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
+const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic}) => {
     const namesWeapons = [
         "Использование парного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
         "Использование двуручного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
         "Использование простого рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
-        "Использование полутороручного и длинного оружия (Ученик/Ветеран/Мастер) (Сила)",
-        "Использование необезоруживаемого, мягкого и метательного оружия (Ученик/Ветеран/Мастер) (Сила)",
-        "Использование дробящего оружия (Ученик/Ветеран/Мастер) (Сила)",
-        "Использование рубящего оружия (Ученик/Ветеран/Мастер) (Сила/Ловкость)",
-        "Использование колющего оружия (Ученик/Ветеран/Мастер) (Сила/Ловкость)",
         "Использование фехтовального оружия (Ученик/Ветеран/Мастер) (Ловкость)",
         "Использование луков и арбалетов (Ученик/Ветеран/Мастер) (Ловкость)",
-        "Использование универсального, притягивающего и нестандартного дальнобойного оружия (ченик/Ветеран/Мастер) (Ловкость)"
+        "Использование универсального, притягивающего и нестандартного дальнобойного оружия (Ученик/Ветеран/Мастер) (Ловкость)"
     ]
     const namesArmor = [
         "Использование лёгких доспехов (Ловкость)",
@@ -87,10 +82,10 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
         create(newNaviks)
     };
 
-    const createVladenia = function(arg1, arg2, shift){
+    const createVladenia = function(arg1, arg2, shift, type){
         const ans = new Array(arg2.length);
         for (let i = 0; i < arg2.length; i++) {
-            ans[i] = <Vladenie val={arg1[i + shift]} create={createVal(i + shift)} name={arg2[i]}/>;
+            ans[i] = <Vladenie val={arg1[i + shift]} create={createVal(i + shift)} name={arg2[i]} type={type} num={shift+i}/>;
         }
         return ans;
     }
@@ -120,11 +115,6 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
         masSumLem[i] = masSumLem[i - 1] + masLen[i - 1];
     }
 
-    const lastWeapons = 2 + +harki[0] + +harki[2] - sumVladenia(masSumLem[0], masSumLem[1]);
-    const lastMistic = harki[4] - sumVladenia(masSumLem[2], masSumLem[3]);
-    const lastLore = harki[3] - sumVladenia(masSumLem[4], masSumLem[5]);
-    const lastLang = harki[5] - sumVladenia(masSumLem[5], masSumLem[6]);
-
     const createAccItem = function (num, header, body) {
         return (
             <AccordionItem eventKey={num}>
@@ -134,9 +124,24 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
         )
     }
 
+    const weapHark = Math.max(harki[0], harki[2]);
+    const maksRankWeapons = (weapHark < 1)  ? "0(запрещено изучать)" :
+                            (weapHark < 6) ? "1(Ученик)" :
+                            (weapHark < 8) ? "2(Ветеран)" :
+                            "3(Мастер)";
+    const maksRankMistic =  (harki[4] < 1)  ? "0(запрещено изучать)" :
+                            (harki[4] < 6) ? "1(Ученик)" :
+                            (harki[4] < 8) ? "2(Адепт)" :
+                            "3(Мастер)";
+    const maksCountMistic = (fellMagic < 1) ? "0(запрещено изучать)" :
+                            (fellMagic < 2) ? "1 школа" :
+                            (fellMagic < 3) ? "2 школы" :
+                            "3 школы";
+
+
     return (
         <Accordion>
-            <AccordionItem eventKey={1}>
+            <AccordionItem eventKey={"vladenia"}>
                 <AccordionHeader>Владения</AccordionHeader>
                 <AccordionBody>
                     <h3>{"Очков владений осталось: " + vladPoints} </h3>
@@ -145,8 +150,10 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
                             1, "Оружейные",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
-                                <div>Максимальное количество владений этой категории - 2 + Сил + Лов. Осталось: {lastWeapons}</div>
-                                {createVladenia(Vladenia, namesWeapons, masSumLem[0]).map((a) => a)}
+                                <div>Максимальный ранг - ученик при СИЛ/ЛОВ хотя бы +1, Адепт при СИЛ/ЛОВ хотя бы +6, Мастер при СИЛ/ЛОВ хотя бы +8.
+                                    Текущий максимальный ранг: {maksRankWeapons}</div>
+                                <div>На максимальное кол-во ограничения не накладываются</div>
+                                {createVladenia(Vladenia, namesWeapons, masSumLem[0], "quarta").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(
@@ -154,40 +161,46 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints}) => {
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - имеется</div>
                                 <div>При отсутвии владения вы получаете помеху на любые действия в этом типе доспехов</div>
-                                <div>Без ограничений на максимальное кол-во</div>
-                                {createVladenia(Vladenia, namesArmor, masSumLem[1]).map((a) => a)}
+                                {createVladenia(Vladenia, namesArmor, masSumLem[1], "double").map((a) => a)}
+                            </AccordionBody>
+                        )}
+                        {createAccItem(
+                            3, "Мистические",
+                            <AccordionBody>
+                                <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
+                                <div>Максимальный ранг - ученик при МДР хотя бы +1, Адепт при МДР хотя бы +6, Мастер при МДР хотя бы +8.
+                                    Текущий максимальный ранг: {maksRankMistic}</div>
+                                <div>Максимальное кол-во школ = уровню навыка Чувство магии.
+                                    Текущее: {maksCountMistic}</div>
+                                {createVladenia(Vladenia, namesMistic, masSumLem[1], "quarta").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(
                             4, "Плутовские и владения инструментами",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - имеется</div>
-                                <div>Без ограничений на максимальное кол-во</div>
-                                {createVladenia(Vladenia, namesTool, masSumLem[3]).map((a) => a)}
+                                {createVladenia(Vladenia, namesTool, masSumLem[3], "double").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(
                             5, "Знания",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - имеется</div>
-                                <div>Максимальное количество владений этой категории - Инт. Осталось: {lastLore}</div>
-                                {createVladenia(Vladenia, namesLore, masSumLem[4]).map((a) => a)}
+                                {createVladenia(Vladenia, namesLore, masSumLem[4], "double").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(
                             6, "Языки",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - имеется</div>
-                                <div>Максимальное количество владений этой категории - Хар. Осталось: {lastLang}</div>
-                                {createVladenia(Vladenia, namesLang, masSumLem[5]).map((a) => a)}
+                                {createVladenia(Vladenia, namesLang, masSumLem[5], "double").map((a) => a)}
                             </AccordionBody>
                         )}
                         {createAccItem(
                             7, "Прочее",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - имеется</div>
-                                <div>Без ограничений на максимальное кол-во</div>
-                                {createVladenia(Vladenia, namesOther, masSumLem[6]).map((a) => a)}
+                                {createVladenia(Vladenia, namesOther, masSumLem[6], "double").map((a) => a)}
                             </AccordionBody>
                         )}
                     </Accordion>

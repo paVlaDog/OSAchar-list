@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Thing from "./Thing";
 import AccordionItem from "react-bootstrap/AccordionItem";
 import AccordionHeader from "react-bootstrap/AccordionHeader";
 import {Accordion} from "react-bootstrap";
 import AccordionBody from "react-bootstrap/AccordionBody";
+import MyInput from "./UI/MyInput";
+
+
 
 const AllThings = ({Things, create}) => {
     const namesPairMeleeWeapons = [
@@ -77,6 +80,12 @@ const AllThings = ({Things, create}) => {
         ["Кусаригама            (двойное (Урон:0, простое, рубящее)/(Урон:-, простое, длинное, дробящее)) ", 70 ]
     ]
     const namesPairRangeWeapons = [
+        ["Гантань               (Урон:--, дис(30/60),  парное, скрытое) (Металлические шарики) ", 0.4 ],
+        ["Сюрикен               (Урон:-, дис(60/120), парное, фехтовальное, бл.бой) ", 1 ],
+        ["Кунай                 (Урон:-, дис(60/120), парное, фехтовальное, бл.бой) ", 1 ],
+        ["Ручной арбалет        (Урон:-, дис(60/120), парное, перезарядка реакцией/малым, Снаряды - болты) ", 35 ]
+    ]
+    const namesSimpleRangeWeapons = [
         ["Дротик                (Урон:--, простое, дис(30/80)) ", 0.2 ],
         ["Праща                 (Урон:--, простое, дис(60/120), Снаряды - камни) ", 5 ],
         ["Бумеранг              (Урон:--, простое, дис(40/80), возвращающаеся) ", 15 ],
@@ -86,12 +95,6 @@ const AllThings = ({Things, create}) => {
         ["Метательное копьё     (Урон:-, простое, дис(60/120), универсальное) ", 5 ],
         ["Легкий арбалет        (Урон:-, простое, дис(80/320), перезарядка малым, Снаряды - болты) ", 40 ],
         ["Сеть                  (простое, дис(10/20), существо опутано, проверка силы 12 чтобы высвободиться) ", 5 ]
-    ]
-    const namesSimpleRangeWeapons = [
-        ["Гантань               (Урон:--, дис(30/60),  парное, скрытое) (Металлические шарики) ", 0.4 ],
-        ["Сюрикен               (Урон:-, дис(60/120), парное, фехтовальное, бл.бой) ", 1 ],
-        ["Кунай                 (Урон:-, дис(60/120), парное, фехтовальное, бл.бой) ", 1 ],
-        ["Ручной арбалет        (Урон:-, дис(60/120), парное, перезарядка реакцией/малым, Снаряды - болты) ", 35 ]
     ]
     const namesTwohandRangeWeapons = [
         ["Короткий лук          (Урон:--, дис(80/320), двуручное, Снаряды - стрелы) ", 15 ],
@@ -248,6 +251,21 @@ const AllThings = ({Things, create}) => {
         return ans;
     }
 
+    const startFill = (len, startValue, str) => {
+        let gettingHarks = Array(len).fill(startValue);
+        for (let i = 0; i < gettingHarks.length; i++) {
+            if (localStorage.getItem(str + i) !== null) {
+                gettingHarks[i] = localStorage.getItem(str + i);
+            }
+        }
+        return gettingHarks;
+    }
+    const saveValue = (mas, str) => {
+        for (let i = 0; i < mas.length; i++) {
+            localStorage.setItem(str + i, mas[i]);
+        }
+    }
+
     const masLen = Array(namesMas.length);
     for (let i = 0; i < masLen.length; i++) {
         masLen[i] = namesMas[i].length;
@@ -268,7 +286,10 @@ const AllThings = ({Things, create}) => {
         evalCosts(namesMas[i], masSumLem[i]);
     }
 
-    const moneyLast = 100 - +costs.reduce((a, b) => +a + +b);
+    const [addMoneyLast, setAddMoneyLast] = useState(() => startFill(1, "0", "addMoneyLast")[0]);
+    const moneyLast = 100 - +costs.reduce((a, b) => +a + +b) + +addMoneyLast;
+
+    const [handThings, setHandThings] = useState(() => startFill(1, "Рюкзак, спальник, простая одежда, рацион на 5 дней.", "handThings")[0]);
 
     const createAccItem = function (num, header, body) {
         return (
@@ -284,7 +305,33 @@ const AllThings = ({Things, create}) => {
             <AccordionItem eventKey={"111"}>
                 <AccordionHeader>Вещи</AccordionHeader>
                 <AccordionBody>
-                    <h2>Монет осталось: <text>{moneyLast}</text> </h2>
+                    <h5>Монет осталось:
+                        <MyInput
+                            style={{width: "70px"}}
+                            disabled = {"true"}
+                            value = {moneyLast}
+                            type={"text"}
+                            placeholder={"0"}/>
+                        Найдено монет:
+                        <MyInput
+                            style={{width: "70px"}}
+                            value = {addMoneyLast}
+                            onChange={e => {setAddMoneyLast(e.target.value); saveValue([e.target.value], "addMoneyLast")}}
+                            type={"text"}
+                            placeholder={"0"}/>
+                    </h5>
+
+                    <AccordionItem eventKey={"handThings"}>
+                        <AccordionHeader>Ручное заполнение:</AccordionHeader>
+                        <AccordionBody>
+                            <MyInput
+                                style={{alignItems:"start", width: "100%", height: "400px", textAlign: "start"}}
+                                value = {handThings}
+                                onChange={e => {setHandThings(e.target.value); saveValue([e.target.value], "handThings")}}
+                                type={"text"}
+                                placeholder={"0"}/>
+                        </AccordionBody>
+                    </AccordionItem>
 
                     {createAccItem("11", "Оружие",
                         <AccordionBody>

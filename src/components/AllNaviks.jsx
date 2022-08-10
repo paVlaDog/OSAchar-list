@@ -34,7 +34,7 @@ const AllNaviks = ({Naviks, create, accordionNumber}) => {
     const createNaviks = function(arg1, arg2){
         const ans = new Array(arg1.length);
         for (let i = 0; i < arg1.length; i++) {
-            ans[i] = <Navik val={arg1[i]} create={createVal(i)} nameNavik={arg2[i]}/>;
+            ans[i] = <Navik val={arg1[i]} create={createVal(i)} nameNavik={arg2[i]} num={i}/>;
         }
         return ans;
     }
