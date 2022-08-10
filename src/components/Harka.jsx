@@ -1,5 +1,6 @@
 import React from 'react';
 import MyInputPlus from "./UI/MyInputPlus";
+import MyInputDrop from "./UI/MyInputDrop";
 
 const Harka = ({val, create, name}) => {
     return (

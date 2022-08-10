@@ -5,6 +5,8 @@ import AccordionHeader from "react-bootstrap/AccordionHeader";
 import {Accordion} from "react-bootstrap";
 import AccordionBody from "react-bootstrap/AccordionBody";
 import MyInput from "./UI/MyInput";
+import MyInputDrop from "./UI/MyInputDrop";
+import MyTextArea from "./UI/MyTextArea";
 
 
 
@@ -313,23 +315,24 @@ const AllThings = ({Things, create}) => {
                             type={"text"}
                             placeholder={"0"}/>
                         Найдено монет:
-                        <MyInput
-                            style={{width: "70px"}}
+                        <MyInputDrop
+                            create = {e => {setAddMoneyLast(e); saveValue([e], "addMoneyLast")}}
+                            val={addMoneyLast}
                             value = {addMoneyLast}
                             onChange={e => {setAddMoneyLast(e.target.value); saveValue([e.target.value], "addMoneyLast")}}
                             type={"text"}
-                            placeholder={"0"}/>
+                            placeholder={"Значение"}
+                        />
                     </h5>
 
                     <AccordionItem eventKey={"handThings"}>
                         <AccordionHeader>Ручное заполнение:</AccordionHeader>
                         <AccordionBody>
-                            <MyInput
-                                style={{alignItems:"start", width: "100%", height: "400px", textAlign: "start"}}
+                            <MyTextArea
+                                style={{width: "100%", height: "400px", textAlign: "start"}}
                                 value = {handThings}
                                 onChange={e => {setHandThings(e.target.value); saveValue([e.target.value], "handThings")}}
-                                type={"text"}
-                                placeholder={"0"}/>
+                                placeholder={"Рюкзак, спальник, простая одежда, рацион на 5 дней."}/>
                         </AccordionBody>
                     </AccordionItem>
 
@@ -360,13 +363,13 @@ const AllThings = ({Things, create}) => {
                                     </AccordionBody>
                                 </AccordionItem>
 
-                                {createAccItem("2", "Парное рукопшаное",
+                                {createAccItem("2", "Парное рукопашное",
                                     <AccordionBody>
                                         <div><strong>Стандартный урон парного оружия: (Нет владения: МОД/2 | Ученик: 1к4+МОД/2 | Ветеран: 1к6+МОД/2 | Мастер: 1к8+МОД/2)</strong></div>
                                         {createThings(Things, namesPairMeleeWeapons, masSumLem[0]).map((a) => a)}
                                     </AccordionBody>
                                 )}
-                                {createAccItem("3", "Простое рукопшаное",
+                                {createAccItem("3", "Простое рукопашное",
                                     <AccordionBody>
                                         <div><strong>Стандартный урон простого оружия: (Нет владения: МОД | Ученик: 1к6+МОД | Ветеран: 1к10+МОД | Мастер: 1к12+МОД)</strong></div>
                                         {createThings(Things, namesSimpleMeleeWeapons, masSumLem[1]).map((a) => a)}

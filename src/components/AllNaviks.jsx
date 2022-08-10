@@ -43,8 +43,9 @@ const AllNaviks = ({Naviks, create, accordionNumber}) => {
         <Accordion.Item eventKey={accordionNumber}>
             <Accordion.Header>Навыки</Accordion.Header>
             <Accordion.Body>
-                <div>0 - не имеется, 1 - владение, 2 - компетентность, 3 - мастерство</div>
-                <div>Со старта можно выбирать не более чем владение</div>
+                <div>Если характеристика, к которой прикреплён навык хотя бы +1, то можно получить Владение</div>
+                <div>Если характеристика, к которой прикреплён навык хотя бы +6, то можно получить Компетентность</div>
+                <div>Если характеристика, к которой прикреплён навык хотя бы +8, то можно получить Мастерство</div>
                 {createNaviks(Naviks, names).map((a) => a)}
             </Accordion.Body>
         </Accordion.Item>

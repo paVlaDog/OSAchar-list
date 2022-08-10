@@ -3,6 +3,7 @@ import AccordionItem from "react-bootstrap/AccordionItem";
 import AccordionHeader from "react-bootstrap/AccordionHeader";
 import AccordionBody from "react-bootstrap/AccordionBody";
 import MyInput from "./UI/MyInput";
+import MyInputPlus from "./UI/MyInputPlus";
 
 const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, level}) => {
     const midVal = function (bone) {
@@ -24,7 +25,9 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
     };
     const createAddInput = (num) => {
         return (
-            <MyInput
+            <MyInputPlus
+                f1 = {() => createAddVal(num)(+addVal[num] - 1)}
+                f2 = {() => createAddVal(num)(+addVal[num] + 1)}
                 value = {addVal[num]}
                 onChange={e => createAddVal(num)(e.target.value)}
                 type={"text"}

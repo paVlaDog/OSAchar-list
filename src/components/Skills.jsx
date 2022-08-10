@@ -1,6 +1,7 @@
 import React from 'react';
 import Accordion from "react-bootstrap/Accordion";
 import MyInput from "./UI/MyInput";
+import MyTextArea from "./UI/MyTextArea";
 
 const Skills = ({skills, create}) => {
     return (
@@ -8,12 +9,11 @@ const Skills = ({skills, create}) => {
             <Accordion.Item eventKey={"skills"}>
                 <Accordion.Header>Прочие черты:</Accordion.Header>
                 <Accordion.Body>
-                    <MyInput
-                        style={{alignItems:"start", width: "100%", height: "400px", textAlign: "start"}}
+                    <MyTextArea
+                        style={{width: "100%", height: "400px", textAlign: "start"}}
                         value = {skills}
                         onChange={e => {create(e.target.value)}}
-                        type={"text"}
-                        placeholder={"Ха, нулёвый!"}/>
+                        placeholder={"Нулевой скилл"}/>
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>

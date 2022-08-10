@@ -1,22 +1,25 @@
 import React from 'react';
 import AccordionItem from "react-bootstrap/AccordionItem";
-import {Accordion} from "react-bootstrap";
 import AccordionHeader from "react-bootstrap/AccordionHeader";
 import AccordionBody from "react-bootstrap/AccordionBody";
-import MyInput from "./UI/MyInput";
+import MyInputPlus from "./UI/MyInputPlus";
+import BoneClass from "./BoneClass";
 
 const Bone = ({name, description, val, create, accordionNumber}) => {
+
     return (
         <AccordionItem eventKey={accordionNumber}>
             <AccordionHeader>{name}</AccordionHeader>
             <AccordionBody>
                 <div style={{display: "inline-block"}}>{description}</div>
-                <MyInput
+                <MyInputPlus
+                    f1 = {() => create((new BoneClass(val)).prevVal())}
+                    f2 = {() => create((new BoneClass(val)).nextVal())}
                     style={{width: "70px"}}
                     value = {val}
                     onChange={e => create(e.target.value)}
                     type={"text"}
-                    placeholder={"1к(Значение)"}
+                    placeholder={"Бескостный"}
                 />
             </AccordionBody>
         </AccordionItem>

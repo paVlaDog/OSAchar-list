@@ -14,6 +14,7 @@ const Thing = ({val, cost, create, name}) => {
                 type={"text"}
                 placeholder={"От 0 до 3"}
             />
+
             {/*<MyInput*/}
             {/*    value = {val}*/}
             {/*    onChange={e => create(e.target.value)}*/}

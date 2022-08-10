@@ -11,10 +11,10 @@ const Navik = ({val, create, nameNavik, num}) => {
     // ]
 
     const getLvl = new Map([
-        [0, 'Отсутствие'],
-        [1, 'Ученик'],
-        [2, 'Адепт'],
-        [3, 'Мастер']
+        [0, 'Отсутствие(+0)'],
+        [1, 'Владение(+1к4)'],
+        [2, 'Компетентность(+1к8)'],
+        [3, 'Мастерство(+1к12)']
     ])
 
     return (
@@ -23,7 +23,7 @@ const Navik = ({val, create, nameNavik, num}) => {
             <MyInputPlus
                 f1 = {() => create(+val - 1)}
                 f2 = {() => create(+val + 1)}
-                style = {{width: "100px"}}
+                style = {{width: "180px"}}
                 value = {getLvl.get(val)}
                 onChange={e => create(e.target.value)}
                 type={"text"}

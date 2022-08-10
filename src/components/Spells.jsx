@@ -1,6 +1,7 @@
 import React from 'react';
 import Accordion from "react-bootstrap/Accordion";
 import MyInput from "./UI/MyInput";
+import MyTextArea from "./UI/MyTextArea";
 
 const Spells = ({spells, create , vladenia, int}) => {
     const shiftWeaponsVladenia = 9;
@@ -15,13 +16,12 @@ const Spells = ({spells, create , vladenia, int}) => {
                         disabled = {"true"}
                         value = {maksSpells}
                         type={"text"}
-                        placeholder={"Лох-Без-Имени"}/>
-                    <MyInput
-                        style={{alignItems:"start", width: "100%", height: "400px", textAlign: "start"}}
+                        placeholder={"0"}/>
+                    <MyTextArea
+                        style={{width: "100%", height: "400px", textAlign: "start"}}
                         value = {spells}
                         onChange={e => {create(e.target.value)}}
-                        type={"text"}
-                        placeholder={"Ха, нулёвый!"}/>
+                        placeholder={"Магия для слабаков"}/>
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>
