@@ -91,38 +91,72 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                         placeholder={"0"}/>
                      Бонусное:
                     {createAddInput(5)}</div>
+                <div>Восстановление хитов на отдыхе:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((2 + Math.floor(+level/2)) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[6])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                    Бонусное:
+                    {createAddInput(6)}</div>
+                <div>Восстановление хитов на привале:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((1 + Math.floor(+level/4)) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[7])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                    Бонусное:
+                    {createAddInput(7)}</div>
+                <div>Восстановление маны на отдыхе:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((2 + Math.floor(+level/2)) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[8])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                    Бонусное:
+                    {createAddInput(8)}</div>
+                <div>Восстановление маны на привале:
+                    <MyInput
+                        disabled = {"true"}
+                        value = {Math.floor((1 + Math.floor(+level/4)) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[9])}
+                        type={"text"}
+                        placeholder={"0"}/>
+                    Бонусное:
+                    {createAddInput(9)}</div>
                 <div>Бонус атаки(Сила):
                     <MyInput
                         disabled = {"true"}
-                        value = {+harki[0] + +addVal[6]}
+                        value = {+harki[0] + +addVal[10]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
-                    {createAddInput(6)}</div>
+                    {createAddInput(10)}</div>
                 <div>Бонус атаки(Ловкость):
                     <MyInput
                         disabled = {"true"}
-                        value = {+harki[2] + +addVal[7]}
+                        value = {+harki[2] + +addVal[11]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
-                    {createAddInput(7)}</div>
+                    {createAddInput(11)}</div>
                 <div>Бонус каста(Мудрость):
                     <MyInput
                         disabled = {"true"}
-                        value = {+harki[4] + +addVal[8]}
+                        value = {+harki[4] + +addVal[12]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
-                    {createAddInput(8)}</div>
+                    {createAddInput(12)}</div>
                 <div>Бонус влияний(Харизма):
                     <MyInput
                         disabled = {"true"}
-                        value = {+harki[5] + +addVal[9]}
+                        value = {+harki[5] + +addVal[13]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
-                    {createAddInput(9)}</div>
+                    {createAddInput(13)}</div>
+                <div>Свободное поле 1:{createAddInput(14)}</div>
+                <div>Свободное поле 2:{createAddInput(15)}</div>
             </AccordionBody>
         </AccordionItem>
     );

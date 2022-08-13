@@ -24,7 +24,7 @@ const Navik = ({val, create, nameNavik, num}) => {
                 f1 = {() => create(+val - 1)}
                 f2 = {() => create(+val + 1)}
                 style = {{width: "180px"}}
-                value = {getLvl.get(val)}
+                value = {(val >= 0 && val <= 3) ? getLvl.get(val) : val}
                 onChange={e => create(e.target.value)}
                 type={"text"}
                 placeholder={"От 0 до 3"}

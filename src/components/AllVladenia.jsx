@@ -5,7 +5,7 @@ import AccordionHeader from "react-bootstrap/AccordionHeader";
 import AccordionBody from "react-bootstrap/AccordionBody";
 import {Accordion} from "react-bootstrap";
 
-const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic}) => {
+const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) => {
     const namesWeapons = [
         "Использование парного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
         "Использование двуручного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
@@ -125,13 +125,13 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic}) => {
     }
 
     const weapHark = Math.max(harki[0], harki[2]);
-    const maksRankWeapons = (weapHark < 1)  ? "0(запрещено изучать)" :
-                            (weapHark < 6) ? "1(Ученик)" :
-                            (weapHark < 8) ? "2(Ветеран)" :
+    const maksRankWeapons = (weapHark < 1) ? "0(запрещено изучать)" :
+                            (weapHark < 5) || (level < 5) ? "1(Ученик)" :
+                            (weapHark < 7) || (level < 10) ? "2(Ветеран)" :
                             "3(Мастер)";
     const maksRankMistic =  (harki[4] < 1)  ? "0(запрещено изучать)" :
-                            (harki[4] < 6) ? "1(Ученик)" :
-                            (harki[4] < 8) ? "2(Адепт)" :
+                            (harki[4] < 5) || (level < 5) ? "1(Ученик)" :
+                            (harki[4] < 7) || (level < 10) ? "2(Адепт)" :
                             "3(Мастер)";
     const maksCountMistic = (fellMagic < 1) ? "0(запрещено изучать)" :
                             (fellMagic < 2) ? "1 школа" :

@@ -16,6 +16,7 @@ import Spells from "./components/Spells";
 import Aspects from "./components/Aspects";
 import BoneHits from "./components/BoneHits";
 import BoneMane from "./components/BoneMane";
+import Wounds from "./components/Wounds";
 
 function midVal(bone) {
     if (bone.length < 3) {
@@ -46,25 +47,30 @@ function App() {
     }
 
     const [level, setLevel] = useState(() => startFill(1, "1", "level")[0]);
+    const [addSkills, setAddSkills] = useState(() => startFill(1, "1", "addSkills")[0]);
     const [harks, setHarks] = useState(() => startFill(6, 0, "harks"));
+    const wholeHarks = harks.map(Math.floor);
     const [naviks, setNaviks] = useState(() => startFill(20, 0, "naviks"));
     const [vladenia, setVladenia] = useState(() => startFill(100, 0, "vladenia"));
     const [boneHits, setBoneHits] = useState(() => startFill(1, "1к6", "boneHits")[0]);
     const [boneMane, setBoneMane] = useState(() => startFill(1, "0", "boneMane")[0]);
     const [things, setThings] = useState(() => startFill(200, 0, "things"));
-    const [addVal, setAddVal] = useState(() => startFill(10, 0, "addVal"));
+    const [addVal, setAddVal] = useState(() => startFill(20, 0, "addVal"));
     const [navStats, setNavStats] = useState(() => startFill(10, 0, "navStats"));
     const [characterClass, setCharacterClass] = useState(() => startFill(1, "", "characterClass")[0]);
     const [characterRace, setCharacterRace] = useState(() => startFill(1, "", "characterRace")[0]);
     const [skills, setSkills] = useState(() => startFill(1, "", "skills")[0]);
     const [spells, setSpells] = useState(() => startFill(1, "", "spells")[0]);
+    const [wounds, setWounds] = useState(() => startFill(1, "", "wounds")[0]);
     const [aspects, setAspects] = useState(() => startFill(1, "", "aspects")[0]);
     const boneHitsCost = (boneHits === "1к4" ? -2 :(boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 2 : (boneHits === "1к10" ? 5 : 25))))
     const boneHitsBonus = (boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 1 : (boneHits === "1к10" ? 2 : 0)))
-    const skillPointsLast = 25 + 2*(level - 1) - 2*harks.reduce((a, b) => +a + +b) - naviks.reduce((a, b) => +a + +b) - boneHitsCost;
-    const skillVladeniiLast = 4 + +boneHitsBonus + +harks[3] - vladenia.reduce((a, b) => +a + +b);
-    const maxHits = Math.floor((4 + +level) * (midVal(boneHits) + +harks[1] + +addVal[2]) + +addVal[4]);
-    const maxMane = Math.floor((4 + +level) * (midVal(boneMane) + +harks[4] + +addVal[3]) + +addVal[5]);
+    const skillPointsLast = 25 + 2*(level - 1) - 2*harks.reduce((a, b) => +a + +b) - naviks.reduce((a, b) => +a + +b) - boneHitsCost - addSkills;
+    const skillVladeniiLast = 4 + +boneHitsBonus + +wholeHarks[3] - vladenia.reduce((a, b) => +a + +b);
+    const maxHits = Math.floor((4 + +level) * (midVal(boneHits) + +wholeHarks[1] + +addVal[2]) + +addVal[4]);
+    const maxMane = Math.floor((4 + +level) * (midVal(boneMane) + +wholeHarks[4] + +addVal[3]) + +addVal[5]);
+    const createLevel = (newMas) => {setLevel(newMas);saveValue(newMas, "level");};
+    const createAddSkills = (newMas) => {setAddSkills(newMas);saveValue([newMas], "addSkills");};
     const createHarks = (newMas) => {setHarks(newMas);saveValue(newMas, "harks");};
     const createNaviks = (newMas) => {setNaviks(newMas);saveValue(newMas, "naviks");};
     const createVladenia = (newMas) => {setVladenia(newMas);saveValue(newMas, "vladenia");};
@@ -72,12 +78,12 @@ function App() {
     const createBoneMane = (newMas) => {setBoneMane(newMas);saveValue([newMas], "boneMane");};
     const createThings = (newMas) => {setThings(newMas);saveValue(newMas, "things");};
     const createAddVal = (newMas) => {setAddVal(newMas);saveValue(newMas, "addVal");};
-    const createLevel = (newMas) => {setLevel(newMas);saveValue(newMas, "level");};
     const createNavStats = (newMas) => {setNavStats(newMas);saveValue(newMas, "navStats");};
     const createCharacterClass = (newMas) => {setCharacterClass(newMas);saveValue([newMas], "characterClass");};
     const createCharacterRace = (newMas) => {setCharacterRace(newMas);saveValue([newMas], "characterRace");};
     const createSkills = (newMas) => {setSkills(newMas);saveValue([newMas], "skills");};
     const createSpells = (newMas) => {setSpells(newMas);saveValue([newMas], "spells");};
+    const createWounds = (newMas) => {setWounds(newMas);saveValue([newMas], "wounds");};
     const createAspects = (newMas) => {setAspects(newMas);saveValue([newMas], "aspects");};
 
 
@@ -99,7 +105,7 @@ function App() {
                 <AllNaviks Naviks={naviks} create={createNaviks} accordionNumber={2}/>
                 <BoneHits boneHits={boneHits} create={createBoneHits}/>
                 <BoneMane boneMane={boneMane} create={createBoneMane}/>
-                <Stats harki={harks} boneHits={boneHits} boneMane={boneMane} accordionNumber={5} addVal={addVal} create={createAddVal} level={level}/>
+                <Stats harki={wholeHarks} boneHits={boneHits} boneMane={boneMane} accordionNumber={5} addVal={addVal} create={createAddVal} level={level}/>
             </Accordion>
         </div>
 
@@ -108,15 +114,18 @@ function App() {
             <AllVladenia className={"borderR2"}
                          Vladenia={vladenia}
                          create={createVladenia}
-                         harki={harks}
+                         harki={wholeHarks}
                          vladPoints={skillVladeniiLast}
-                         harks={harks}
-                         fellMagic={naviks[13]}/>
+                         harks={wholeHarks}
+                         fellMagic={naviks[13]}
+                         level={level}
+            />
             <AllThings className={"borderR2"} Things={things} create={createThings}/>
             <CharacterClass characterClass={characterClass} create={createCharacterClass}></CharacterClass>
             <CharacterRase characterRace={characterRace} create={createCharacterRace}></CharacterRase>
-            <Skills skills={skills} create={createSkills}></Skills>
-            <Spells spells={spells} create={createSpells} vladenia={vladenia} int={harks[3]}></Spells>
+            <Skills skills={skills} create={createSkills} addSkills={addSkills} createAddSkills={createAddSkills}></Skills>
+            <Wounds wounds={wounds} create={createWounds}></Wounds>
+            <Spells spells={spells} create={createSpells} vladenia={vladenia} int={wholeHarks[3]}></Spells>
             <Aspects aspects={aspects} create={createAspects} ></Aspects>
         </div>
     </div>

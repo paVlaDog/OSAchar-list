@@ -7,8 +7,8 @@ const Harka = ({val, create, name}) => {
         <form>
             <text>{name}</text>
             <MyInputPlus
-                f1 = {() => create(+val - 1)}
-                f2 = {() => create(+val + 1)}
+                f1 = {() => create(+val - 0.5)}
+                f2 = {() => create(+val + 0.5)}
                 value = {val}
                 onChange={e => create(e.target.value)}
                 type={"text"}

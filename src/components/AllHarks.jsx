@@ -12,15 +12,16 @@ const AllHarks = ({Harks, create, accordionNumber, level}) => {
     };
 
     const maxHark = (lvl) => {
-        if (+lvl <= 1) {
-            return 4;
-        } else if (+lvl < 5) {
-            return 6;
-        } else if (+lvl < 10) {
-            return 8;
-        } else {
-            return 10;
-        }
+        return Math.floor(4 + (lvl / 5))
+        // if (+lvl <= 1) {
+        //     return 4;
+        // } else if (+lvl < 5) {
+        //     return 6;
+        // } else if (+lvl < 10) {
+        //     return 8;
+        // } else {
+        //     return 10;
+        // }
     }
 
     return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import MyInput from "./UI/MyInput";
 import MyInputPlus from "./UI/MyInputPlus";
 
 const Thing = ({val, cost, create, name}) => {

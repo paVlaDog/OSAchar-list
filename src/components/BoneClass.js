@@ -4,7 +4,7 @@ class BoneClass {
 
     constructor(val) {
         this.val = val;
-        this.order = ["Эээ, куда", "0", "1к4", "1к6", "1к8", "1к10", "1к12", "Эээ, куда"];
+        this.order = ["-inf", "0", "1к4", "1к6", "1к8", "1к10", "1к12", "+inf"];
     }
     get() {
         return this.val;
@@ -13,10 +13,18 @@ class BoneClass {
         this.val = val;
     }
     nextVal() {
-        return this.order[this.order.indexOf(this.val) + 1];
+        if(this.order.indexOf(this.val) !== 7) {
+            return this.order[this.order.indexOf(this.val) + 1];
+        } else {
+            return "-inf";
+        }
     }
     prevVal() {
-        return this.order[this.order.indexOf(this.val) - 1];
+        if(this.order.indexOf(this.val) !== 0) {
+            return this.order[this.order.indexOf(this.val) - 1];
+        } else {
+            return "+inf";
+        }
     }
     // midVal() {
     //     if (this.val.length === 4 && this.val[1] === "к") {

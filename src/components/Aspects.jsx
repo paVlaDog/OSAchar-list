@@ -1,6 +1,5 @@
 import React from 'react';
 import Accordion from "react-bootstrap/Accordion";
-import MyInput from "./UI/MyInput";
 import MyTextArea from "./UI/MyTextArea";
 
 const Aspects = ({aspects, create}) => {
