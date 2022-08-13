@@ -47,7 +47,7 @@ function App() {
     }
 
     const [level, setLevel] = useState(() => startFill(1, "1", "level")[0]);
-    const [addSkills, setAddSkills] = useState(() => startFill(1, "1", "addSkills")[0]);
+    const [addSkills, setAddSkills] = useState(() => startFill(1, "0", "addSkills")[0]);
     const [harks, setHarks] = useState(() => startFill(6, 0, "harks"));
     const wholeHarks = harks.map(Math.floor);
     const [naviks, setNaviks] = useState(() => startFill(20, 0, "naviks"));
