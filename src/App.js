@@ -66,7 +66,7 @@ function App() {
     const boneHitsCost = (boneHits === "1к4" ? -2 :(boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 2 : (boneHits === "1к10" ? 5 : 25))))
     const boneHitsBonus = (boneHits === "1к6" ? 0 : (boneHits === "1к8" ? 1 : (boneHits === "1к10" ? 2 : 0)))
     const skillPointsLast = 25 + 2*(level - 1) - 2*harks.reduce((a, b) => +a + +b) - naviks.reduce((a, b) => +a + +b) - boneHitsCost - addSkills;
-    const skillVladeniiLast = 4 + +boneHitsBonus + +wholeHarks[3] - vladenia.reduce((a, b) => +a + +b);
+    const skillVladeniiLast = 5 + +boneHitsBonus + +wholeHarks[3] - vladenia.reduce((a, b) => +a + +b);
     const maxHits = Math.floor((4 + +level) * (midVal(boneHits) + +wholeHarks[1] + +addVal[2]) + +addVal[4]);
     const maxMane = Math.floor((4 + +level) * (midVal(boneMane) + +wholeHarks[4] + +addVal[3]) + +addVal[5]);
     const createLevel = (newMas) => {setLevel(newMas);saveValue(newMas, "level");};

@@ -17,7 +17,8 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) =>
     const namesArmor = [
         "Использование лёгких доспехов (Ловкость)",
         "Испольование средних доспехов (Телосложение)",
-        "Использование тяжёлых доспехов (Сила)"
+        "Использование тяжёлых доспехов (Сила)",
+        "Использование щитов (Сила)"
     ]
     const namesMistic = [
         "Магия Водоворота душ (Ученик/Адепт/Мастер) (Мудрость)",
@@ -145,6 +146,7 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) =>
                 <AccordionHeader>Владения</AccordionHeader>
                 <AccordionBody>
                     <h3>{"Очков владений осталось: " + vladPoints} </h3>
+                    <h3>{"Вы можете сохранить " + harki[3] + " свободных"} </h3>
                     <Accordion alwaysOpen>
                         {createAccItem(
                             1, "Оружейные",

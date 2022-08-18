@@ -11,7 +11,7 @@ const Spells = ({spells, create , vladenia, int}) => {
             <Accordion.Item eventKey={"spells"}>
                 <Accordion.Header>Заклинания:</Accordion.Header>
                 <Accordion.Body>
-                    <h5 style={{display: "inline-flex"}}>Максимальное количество заклинаний:</h5>
+                    <h5 style={{display: "inline-flex"}}>Максимальное количество заклятий:</h5>
                     <MyInput
                         disabled = {"true"}
                         value = {maksSpells}

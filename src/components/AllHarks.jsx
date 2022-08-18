@@ -36,6 +36,7 @@ const AllHarks = ({Harks, create, accordionNumber, level}) => {
                         value = {maxHark(level)}
                         type={"text"}
                         placeholder={"0"}/>
+                <div>Значение +4 со старта может быть не более чем у одной характеристики. Для всех прочих максимум +3</div>
                 <Harka val={Harks[0]} create={createVal(0)} name={"Сила"}/>
                 <Harka val={Harks[1]} create={createVal(1)} name={"Телосложение"}/>
                 <Harka val={Harks[2]} create={createVal(2)} name={"Ловкость"}/>
