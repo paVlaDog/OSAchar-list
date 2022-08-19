@@ -5,7 +5,7 @@ import AccordionHeader from "react-bootstrap/AccordionHeader";
 import AccordionBody from "react-bootstrap/AccordionBody";
 import {Accordion} from "react-bootstrap";
 
-const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) => {
+const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, power}) => {
     const namesWeapons = [
         "Использование парного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
         "Использование двуручного рукопашного оружия (Ученик/Ветеран/Мастер) (Сила)",
@@ -127,12 +127,12 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) =>
 
     const weapHark = Math.max(harki[0], harki[2]);
     const maksRankWeapons = (weapHark < 1) ? "0(запрещено изучать)" :
-                            (weapHark < 5) || (level < 5) ? "1(Ученик)" :
-                            (weapHark < 7) || (level < 10) ? "2(Ветеран)" :
+                            (weapHark < 5) || (power < 45) ? "1(Ученик)" :
+                            (weapHark < 7) || (power < 60) ? "2(Ветеран)" :
                             "3(Мастер)";
     const maksRankMistic =  (harki[4] < 1)  ? "0(запрещено изучать)" :
-                            (harki[4] < 5) || (level < 5) ? "1(Ученик)" :
-                            (harki[4] < 7) || (level < 10) ? "2(Адепт)" :
+                            (harki[4] < 5) || (power < 45) ? "1(Ученик)" :
+                            (harki[4] < 7) || (power < 60) ? "2(Адепт)" :
                             "3(Мастер)";
     const maksCountMistic = (fellMagic < 1) ? "0(запрещено изучать)" :
                             (fellMagic < 2) ? "1 школа" :
@@ -152,7 +152,7 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) =>
                             1, "Оружейные",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
-                                <div>Максимальный ранг - ученик при СИЛ/ЛОВ хотя бы +1, Адепт при СИЛ/ЛОВ хотя бы +6, Мастер при СИЛ/ЛОВ хотя бы +8.
+                                <div>Максимальный ранг - ученик при СИЛ/ЛОВ хотя бы +1, Адепт при СИЛ/ЛОВ хотя бы +6 и 45 мощи, Мастер при СИЛ/ЛОВ хотя бы +8 и 60 мощи.
                                     Текущий максимальный ранг: {maksRankWeapons}</div>
                                 <div>На максимальное кол-во ограничения не накладываются</div>
                                 {createVladenia(Vladenia, namesWeapons, masSumLem[0], "quarta").map((a) => a)}
@@ -170,7 +170,7 @@ const AllVladenia = ({Vladenia, create, harki, vladPoints, fellMagic, level}) =>
                             3, "Мистические",
                             <AccordionBody>
                                 <div>0 - не имеется, 1 - ученик, 2 - ветеран, 3 - мастер</div>
-                                <div>Максимальный ранг - ученик при МДР хотя бы +1, Адепт при МДР хотя бы +6, Мастер при МДР хотя бы +8.
+                                <div>Максимальный ранг - ученик при МДР хотя бы +1, Адепт при МДР хотя бы +6 и 45 мощи, Мастер при МДР хотя бы +8 и 60 мощи.
                                     Текущий максимальный ранг: {maksRankMistic}</div>
                                 <div>Максимальное кол-во школ = уровню навыка Чувство магии.
                                     Текущее: {maksCountMistic}</div>

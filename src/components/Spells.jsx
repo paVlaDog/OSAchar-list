@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Accordion from "react-bootstrap/Accordion";
 import MyInput from "./UI/MyInput";
 import MyTextArea from "./UI/MyTextArea";
 
-const Spells = ({spells, create , vladenia, int}) => {
-    const shiftWeaponsVladenia = 9;
-    const maksSpells = vladenia.slice(shiftWeaponsVladenia, shiftWeaponsVladenia + 7).reduce((a, b) => +a + +b, 0) * int;
+const Spells = ({spells, create , vladenia, int, addSpell}) => {
+    const shiftWeaponsVladenia = 10;
+    const maksSpells = vladenia.slice(shiftWeaponsVladenia, shiftWeaponsVladenia + 7).reduce((a, b) => +a + +b, 0) * int + addSpell;
+
     return (
         <Accordion>
             <Accordion.Item eventKey={"spells"}>

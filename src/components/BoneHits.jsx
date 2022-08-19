@@ -10,8 +10,7 @@ const BoneHits = ({boneHits, create}) => {
         <AccordionItem eventKey={3}>
             <AccordionHeader>{"Кость хитов"}</AccordionHeader>
             <AccordionBody>
-                <div>{"Базовая - 1к6. 1к8 стоит 2 очка и даёт +1 влияние, 1к10 стоит 5 очков и даёт +2 влияния"}</div>
-                <div>{"Можно понизить до 1к4 и получить 2 дополнительных очка умений"}</div>
+                <div>{"Базовая - 1к6. Кость хитов может быть увеличена некотрыми способностями"}</div>
                 <MyInputPlus
                     f1 = {() => create((new BoneClass(boneHits)).prevVal())}
                     f2 = {() => create((new BoneClass(boneHits)).nextVal())}

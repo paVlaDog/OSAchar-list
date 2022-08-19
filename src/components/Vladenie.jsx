@@ -44,8 +44,8 @@ const Vladenie = ({val, create, name, type, num}) => {
                 f2 = {() => create(+val + 1)}
                 style = {{width: "125px"}}
                 value = {type === "quarta"
-                    ? ((val >= 0 && val <= 3) ? getVlad4.get(val) : val)
-                    : ((val >= 0 && val <= 1) ? getVlad2.get(val) : val)}
+                    ? ((+val >= 0 && +val <= 3) ? getVlad4.get(+val) : +val)
+                    : ((+val >= 0 && +val <= 1) ? getVlad2.get(+val) : +val)}
                 onChange={e => create(e.target.value)}
                 type={"text"}
                 placeholder={"Лох"}

@@ -4,7 +4,7 @@ import MyInput from "./UI/MyInput";
 import MyInputPlus from "./UI/MyInputPlus";
 import MyInputDrop from "./UI/MyInputDrop";
 
-const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, addVal, maxHits, maxMane}) => {
+const NavMainStats = ({power, createPower, skillPointsLast, create, navStats, maxHits, maxMane}) => {
     const createNavStats = (num) => (newVal) => {
         const newHarks = navStats.slice(0)
         newHarks[num] = newVal
@@ -30,22 +30,15 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
             </Nav.Item>
 
             <Nav.Item>
-                <h5 style={{display: "inline-flex"}}>Уровень:</h5>
+                <h5 style={{display: "inline-flex"}}>Мощь:</h5>
                 <MyInputPlus
-                    f1 = {() => createLevel(+level - 1)}
-                    f2 = {() => createLevel(+level + 1)}
-                    value = {level}
-                    onChange={e => create(e.target.value)}
+                    f1 = {() => createPower(+power - 1)}
+                    f2 = {() => createPower(+power + 1)}
+                    value = {power}
+                    onChange={e => createPower(e.target.value)}
                     type={"text"}
                     placeholder={"Значение"}
                 />
-                {/*<MyInput*/}
-                {/*    value = {level}*/}
-                {/*    onChange={e => {*/}
-                {/*        createLevel(e.target.value);*/}
-                {/*    }}*/}
-                {/*    type={"text"}*/}
-                {/*    placeholder={"0"}/>*/}
             </Nav.Item>
 
             <Nav.Item>
@@ -95,11 +88,6 @@ const NavMainStats = ({level, createLevel, skillPointsLast, create, navStats, ad
 
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Вдохновения:</h5>
-                {/*<MyInput*/}
-                {/*    value = {navStats[3]}*/}
-                {/*    onChange={e => {createNavStats(3)(e.target.value);}}*/}
-                {/*    type={"text"}*/}
-                {/*    placeholder={"0"}/>*/}
                 <MyInputPlus
                     f1 = {() => createNavStats(3)(+navStats[3] - 1)}
                     f2 = {() => createNavStats(3)(+navStats[3] + 1)}

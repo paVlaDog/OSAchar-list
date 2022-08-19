@@ -5,7 +5,7 @@ import AccordionBody from "react-bootstrap/AccordionBody";
 import MyInput from "./UI/MyInput";
 import MyInputPlus from "./UI/MyInputPlus";
 
-const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, level}) => {
+const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create}) => {
     const midVal = function (bone) {
         if (bone.length < 3) {
             return +bone;
@@ -44,7 +44,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>КФЗ:
                     <MyInput
                         disabled = {"true"}
-                        value = {10 + +harki[2] + +addVal[0]}
+                        value = {5 + +harki[2] + +addVal[0]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
@@ -52,7 +52,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>КМЗ:
                     <MyInput
                         disabled = {"true"}
-                        value = {+harki[5] + +addVal[1]}
+                        value = {5 + +harki[5] + +addVal[1]}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
@@ -78,7 +78,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Запас хитов(средний):
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((4 + +level) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[4])}
+                        value = {Math.floor(8 * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[4])}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
@@ -86,7 +86,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Запас маны(средний):
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((4 + +level) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[5])}
+                        value = {Math.floor(8 * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[5])}
                         type={"text"}
                         placeholder={"0"}/>
                      Бонусное:
@@ -94,7 +94,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Восстановление хитов на отдыхе:
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((2 + Math.floor(+level/2)) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[6])}
+                        value = {Math.floor(4 * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[6])}
                         type={"text"}
                         placeholder={"0"}/>
                     Бонусное:
@@ -102,7 +102,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Восстановление хитов на привале:
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((1 + Math.floor(+level/4)) * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[7])}
+                        value = {Math.floor(2 * (midVal(boneHits) + +harki[1] + +addVal[2]) + +addVal[7])}
                         type={"text"}
                         placeholder={"0"}/>
                     Бонусное:
@@ -110,7 +110,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Восстановление маны на отдыхе:
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((2 + Math.floor(+level/2)) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[8])}
+                        value = {Math.floor(4 * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[8])}
                         type={"text"}
                         placeholder={"0"}/>
                     Бонусное:
@@ -118,7 +118,7 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                 <div>Восстановление маны на привале:
                     <MyInput
                         disabled = {"true"}
-                        value = {Math.floor((1 + Math.floor(+level/4)) * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[9])}
+                        value = {Math.floor(2 * (midVal(boneMane) + +harki[4] + +addVal[3]) + +addVal[9])}
                         type={"text"}
                         placeholder={"0"}/>
                     Бонусное:
@@ -157,6 +157,9 @@ const Stats = ({boneHits, boneMane, harki, accordionNumber, addVal, create, leve
                     {createAddInput(13)}</div>
                 <div>Свободное поле 1:{createAddInput(14)}</div>
                 <div>Свободное поле 2:{createAddInput(15)}</div>
+                <div>Балансировка очков навыков:{createAddInput(16)}</div>
+                <div>Балансировка очков владений:{createAddInput(17)}</div>
+                <div>Балансировка максимума заклятий:{createAddInput(18)}</div>
             </AccordionBody>
         </AccordionItem>
     );

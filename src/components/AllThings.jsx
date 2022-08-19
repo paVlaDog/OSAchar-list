@@ -7,10 +7,11 @@ import AccordionBody from "react-bootstrap/AccordionBody";
 import MyInput from "./UI/MyInput";
 import MyInputDrop from "./UI/MyInputDrop";
 import MyTextArea from "./UI/MyTextArea";
+import MyInputPlus from "./UI/MyInputPlus";
 
 
 
-const AllThings = ({Things, create}) => {
+const AllThings = ({Things, create, harki, thingsConst, createThingsConst}) => {
     const namesPairMeleeWeapons = [
         ["Дубинка               (Урон:-, парное, дробящее) ", 5 ],
         ["Серп                  (Урон:-, парное, рубящее/колющее) ", 8 ],
@@ -106,29 +107,29 @@ const AllThings = ({Things, create}) => {
     ]
     const namesAmmunition = [
         ["Камни", 0 ],
-        ["Стрелы(10)", 2 ],
+        ["Стрелы(5)", 2 ],
         ["Болты(5)", 2 ],
         ["Дротики(3)", 2 ]
     ]
     const namesLightArmor = [
-        [ "Стёганный (Лёгкий, КД +1)", 15 ],
-        [ "Кожанный (Лёгкий, КД +2)", 30 ],
-        [ "Клёпанная кожа (Лёгкий, КД +3)", 90 ],
-        [ "Мифриловый полукольчужный (Лёгкий, КД +4)", 400 ]
+        [ "Стёганный (Лёгкий, КД +2)", 15 ],
+        [ "Кожанный (Лёгкий, КД +3)", 30 ],
+        [ "Клёпанная кожа (Лёгкий, КД +4)", 90 ],
+        [ "Мифриловая кольчужная рубаха (Лёгкий, КД +5)", 400 ]
     ]
     const namesMediumArmor = [
-        [ "Шкурный (Средний, КД +3)", 20],
-        [ "Полукольчужный (Кольчужная рубаха) (Средний, КД +4)", 45],
-        [ "Полуламеллярный (Кираса) (Средний, КД +5)", 75],
-        [ "Ламинарный (Средний, КД +6)", 120],
-        [ "Полулаты (Средний, КД +7)", 190]
+        [ "Шкурный (Средний, КД +4)", 20],
+        [ "Полукольчужный (Кольчужная рубаха) (Средний, КД +5)", 45],
+        [ "Полуламеллярный (Кираса) (Средний, КД +6)", 75],
+        [ "Ламинарный (Средний, КД +7)", 120],
+        [ "Полулаты (Средний, КД +8)", 200]
     ]
     const namesHeavyArmor = [
         ["Колечный (Тяжёлый, КД +6)", 25],
         ["Кольчуга (Тяжёлый, КД +7)", 50],
         ["Ламеллярный (Чешуйчатый) (Тяжёлый, КД +8)", 90],
-        ["Пластинчатый (Тяжёлый, КД +9)", 160],
-        ["Латы (Тяжёлый, КД +10)", 400]
+        ["Пластинчатый (Тяжёлый, КД +9)", 150],
+        ["Латы (Тяжёлый, КД +10)", 350]
     ]
     const namesShield = [
         [ "Баклер (-3 к атакам/кастам этой рукой, +1КД, можно носить в одной руке с оружием.)" , 10],
@@ -262,20 +263,6 @@ const AllThings = ({Things, create}) => {
         return ans;
     }
 
-    const startFill = (len, startValue, str) => {
-        let gettingHarks = Array(len).fill(startValue);
-        for (let i = 0; i < gettingHarks.length; i++) {
-            if (localStorage.getItem(str + i) !== null) {
-                gettingHarks[i] = localStorage.getItem(str + i);
-            }
-        }
-        return gettingHarks;
-    }
-    const saveValue = (mas, str) => {
-        for (let i = 0; i < mas.length; i++) {
-            localStorage.setItem(str + i, mas[i]);
-        }
-    }
 
     const masLen = Array(namesMas.length);
     for (let i = 0; i < masLen.length; i++) {
@@ -297,10 +284,7 @@ const AllThings = ({Things, create}) => {
         evalCosts(namesMas[i], masSumLem[i]);
     }
 
-    const [addMoneyLast, setAddMoneyLast] = useState(() => startFill(1, "0", "addMoneyLast")[0]);
-    const moneyLast = 150 - +costs.reduce((a, b) => +a + +b) + +addMoneyLast;
-
-    const [handThings, setHandThings] = useState(() => startFill(1, "Рюкзак, спальник, простая одежда, рацион на 5 дней.", "handThings")[0]);
+    const moneyLast = 150 - +costs.reduce((a, b) => +a + +b) + +thingsConst[0];
 
     const createAccItem = function (num, header, body) {
         return (
@@ -310,6 +294,12 @@ const AllThings = ({Things, create}) => {
             </AccordionItem>
         )
     }
+
+    const createValConst = (num) => (newVal) => {
+        const newValConst = thingsConst.slice(0)
+        newValConst[num] = newVal
+        createThingsConst(newValConst)
+    };
 
     return (
         <Accordion alwaysOpen>
@@ -325,22 +315,43 @@ const AllThings = ({Things, create}) => {
                             placeholder={"0"}/>
                         Найдено монет:
                         <MyInputDrop
-                            create = {e => {setAddMoneyLast(e); saveValue([e], "addMoneyLast")}}
-                            val={addMoneyLast}
-                            value = {addMoneyLast}
-                            onChange={e => {setAddMoneyLast(e.target.value); saveValue([e.target.value], "addMoneyLast")}}
+                            create = {e => {createValConst(0)(e)}}
+                            val={thingsConst[0]}
+                            value = {thingsConst[0]}
+                            onChange={e => {createValConst(0)(e)}}
                             type={"text"}
                             placeholder={"Значение"}
                         />
                     </h5>
+                    <h5>Грузоподъёмность:
+                        <MyInput
+                            style={{width: "70px"}}
+                            disabled = {"true"}
+                            value = {3 + +harki[0]}
+                            type={"text"}
+                            placeholder={"0"}/>
+                        Занято:
+                        <MyInputPlus
+                            f1 = {() => createValConst(1)(+thingsConst[1] - 0.5)}
+                            f2 = {() => createValConst(1)(+thingsConst[1] + 0.5)}
+                            value = {thingsConst[1]}
+                            onChange={e => createValConst(1)(e.target.value)}
+                            type={"text"}
+                            placeholder={"0"}
+                        />
+                    </h5>
+                    <div>1/2 грузоподъёмности это - парное оружие, 30 стрел, много мелких вещей</div>
+                    <div>1 грузоподъёмности это - простое и двуручное оружие, лёгкие и средние доспехи</div>
+                    <div>2 грузоподъёмности это - тяжёлые доспехи</div>
 
                     <AccordionItem eventKey={"handThings"}>
                         <AccordionHeader>Ручное заполнение:</AccordionHeader>
                         <AccordionBody>
+                            <div>Стартовые: Рюкзак, спальник, простая одежда, рацион на 5 дней.</div>
                             <MyTextArea
                                 style={{width: "100%", height: "400px", textAlign: "start"}}
-                                value = {handThings}
-                                onChange={e => {setHandThings(e.target.value); saveValue([e.target.value], "handThings")}}
+                                value = {thingsConst[2]}
+                                onChange={e => {createValConst(2)(e.target.value)}}
                                 placeholder={"Рюкзак, спальник, простая одежда, рацион на 5 дней."}/>
                         </AccordionBody>
                     </AccordionItem>
