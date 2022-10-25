@@ -5,7 +5,7 @@ import MyTextArea from "./UI/MyTextArea";
 
 const Spells = ({spells, create , vladenia, int, addSpell}) => {
     const shiftWeaponsVladenia = 10;
-    const maksSpells = vladenia.slice(shiftWeaponsVladenia, shiftWeaponsVladenia + 7).reduce((a, b) => +a + +b, 0) * int + addSpell;
+    const maksSpells = vladenia.slice(shiftWeaponsVladenia, shiftWeaponsVladenia + 7).reduce((a, b) => +a + +b, 0) * int + +addSpell;
 
     return (
         <Accordion>

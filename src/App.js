@@ -30,6 +30,8 @@ function midVal(bone) {
 }
 
 
+
+
 function App() {
     const startFill = (len, startValue, str) => {
         let gettingHarks = Array(len).fill(startValue);
@@ -68,7 +70,7 @@ function App() {
     const skillVladeniiLast = 5 + +wholeHarks[3] - vladenia.reduce((a, b) => +a + +b) + +addVal[17];
     const maxHits = Math.floor(8 * (midVal(boneHits) + +wholeHarks[1] + +addVal[2]) + +addVal[4]);
     const maxMane = Math.floor(8 * (midVal(boneMane) + +wholeHarks[4] + +addVal[3]) + +addVal[5]);
-    const createPower = (newMas) => {setPower(newMas);saveValue(newMas, "power");};
+    const createPower = (newMas) => {setPower(newMas);saveValue([newMas], "power");};
     const createAddSkills = (newMas) => {setAddSkills(newMas);saveValue([newMas], "addSkills");};
     const createHarks = (newMas) => {setHarks(newMas);saveValue(newMas, "harks");};
     const createNaviks = (newMas) => {setNaviks(newMas);saveValue(newMas, "naviks");};
@@ -170,6 +172,7 @@ function App() {
                         ]
                     ]
                 }
+                name = {navStats[0]}
             />
         </div>
     </div>

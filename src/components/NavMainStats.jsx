@@ -15,7 +15,7 @@ const NavMainStats = ({power, createPower, skillPointsLast, create, navStats, ma
         <Nav
             style={{display: "flex", justifyContent: "space-around"}}
             activeKey="/home"
-            onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+            // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
         >
             <Nav.Item>
                 <h5 style={{display: "inline-flex"}}>Имя:</h5>
